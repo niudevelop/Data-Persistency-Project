@@ -12,20 +12,22 @@ public class MainManager : MonoBehaviour
 
     public Text ScoreText;
     public GameObject GameOverText;
-    
+    public  Text highScoreText;
+
     private bool m_Started = false;
     private int m_Points;
-    
+
     private bool m_GameOver = false;
 
-    
+
     // Start is called before the first frame update
     void Start()
     {
+        highScoreText.text = "Best Score: " + PersistenceManager.Instance.playerName + " : " + PersistenceManager.Instance.highScore;
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
-        
-        int[] pointCountArray = new [] {1,1,2,2,5,5};
+
+        int[] pointCountArray = new[] { 1, 1, 2, 2, 5, 5 };
         for (int i = 0; i < LineCount; ++i)
         {
             for (int x = 0; x < perLine; ++x)
@@ -70,6 +72,15 @@ public class MainManager : MonoBehaviour
 
     public void GameOver()
     {
+        string currentPlayer = PersistenceManager.Instance.currentPlayer;
+        PersistenceManager.Instance.LoadData();
+        if (m_Points > PersistenceManager.Instance.highScore)
+        {
+            PersistenceManager.Instance.highScore = m_Points;
+            PersistenceManager.Instance.playerName = currentPlayer;
+            PersistenceManager.Instance.PersistData();
+
+        }
         m_GameOver = true;
         GameOverText.SetActive(true);
     }
