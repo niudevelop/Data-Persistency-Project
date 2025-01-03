@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Submission Unit 6.sln"
+    "dotnet.defaultSolution": "Data-Persistency-Project.sln"
 }

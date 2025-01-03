@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 #if UNITY_EDITOR
-    using UnityEditor;
+using UnityEditor;
 #endif
 
 
@@ -18,8 +18,11 @@ public class MenuUIHandler : MonoBehaviour
     void Start()
     {
         PersistenceManager.Instance.LoadData();
-        inputField.text = PersistenceManager.Instance.playerName;
-        highScore.text = $"Best Score:{PersistenceManager.Instance.playerName}({PersistenceManager.Instance.highScore})";
+        if (PersistenceManager.Instance.playerName != "" && PersistenceManager.Instance.highScore != 0)
+        {
+            inputField.text = PersistenceManager.Instance.playerName;
+            highScore.text = $"Best Score:{PersistenceManager.Instance.playerName}({PersistenceManager.Instance.highScore})";
+        }
     }
     public void StartGame()
     {
@@ -38,7 +41,7 @@ public class MenuUIHandler : MonoBehaviour
     public void QuitGame()
     {
 #if UNITY_EDITOR
-            EditorApplication.ExitPlaymode();
+        EditorApplication.ExitPlaymode();
 #else
         Application.Quit();
 #endif
